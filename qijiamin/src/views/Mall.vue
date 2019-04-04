@@ -27,6 +27,7 @@ export default {
         method: 'get',
         url: this.url + '?c=who&a=sellerGoodsListMade&seller_id=288&page=1'
       }).then((response) => {
+        console.log(this.$ajax)
         this.mallList = response.data
         console.log(response)
       }).catch((error) => {

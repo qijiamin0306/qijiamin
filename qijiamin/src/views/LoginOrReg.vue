@@ -26,30 +26,42 @@ export default {
   methods: {
     login: function () {
       var that = this
-      this.$ajax({
-        mothed: 'post',
-        url: this.GLOBAL.url + 'c=members&a=codeLogin',
-        param: {
-          mobile: that.mobile,
-          code: that.code
-        }
-      }).then((res) => {
-        this.$emit('hidden')
-      }).catch((error) => {
-        alert(error)
-      })
+      let param = new URLSearchParams()
+      param.append('mobile', that.mobile)
+      param.append('code', that.code)
+
+      that.$ajax.post(that.GLOBAL.url + 'c=members&a=codeLogin', param)
+        .then(function (response) {
+          that.$emit('hidden')
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      // let params = {
+      //   mobile: that.mobile,
+      //   code: that.code
+      // }
+      // that.$ajax.post(that.GLOBAL.url + 'c=members&a=codeLogin', that.$qs.stringify(params))
+      //   .then(function (response) {
+      //     that.$emit('hidden')
+      //     console.log(response)
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error)
+      //   })
     },
     close: function () {
       this.$emit('hidden')
     },
     getCode: function () {
       this.$ajax({
-        mothed: 'get',
+        method: 'get',
         url: this.GLOBAL.url + 'c=members&a=send_login_code&mobile=' + this.mobile
       }).then((res) => {
-        alert(res)
+        console.log(res)
       }).catch((error) => {
-        alert(error)
+        console.log(error)
       })
     }
   }
